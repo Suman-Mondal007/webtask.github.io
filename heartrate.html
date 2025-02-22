@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Heart Rate Monitoring System</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('background3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 70%;
+            margin: auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="number"], select, button {
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .normal {
+            color: green;
+            font-weight: bold;
+        }
+        .high {
+            color: red;
+            font-weight: bold;
+        }
+        .low {
+            color: blue;
+            font-weight: bold;
+        }
+        .result-heading {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .age-help-text {
+            font-size: 14px;
+            color: #888;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Heart Rate Monitoring System</h1>
+
+        <div class="form-group">
+            <label for="heartRate">Enter Heart Rate (beats per minute):</label>
+            <input type="number" id="heartRate" placeholder="Enter heart rate (bpm)" />
+        </div>
+
+        <div class="form-group">
+            <label for="age">Enter Age:</label>
+            <input type="number" id="age" placeholder="Enter your age" />
+            <small class="age-help-text">Note: For accurate results, please provide your age.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="activityLevel">Select Activity Level:</label>
+            <select id="activityLevel">
+                <option value="sedentary">Sedentary (Little to no exercise)</option>
+                <option value="light">Lightly Active (Light exercise/sports 1-3 days/week)</option>
+                <option value="moderate">Moderately Active (Moderate exercise/sports 3-5 days/week)</option>
+                <option value="active">Very Active (Hard exercise/sports 6-7 days a week)</option>
+                <option value="extreme">Super Active (Very hard exercise/sports, physical job or training twice a day)</option>
+            </select>
+        </div>
+
+        <button onclick="checkHeartRate()">Check Heart Rate</button>
+
+        <div id="output" class="output"></div>
+    </div>
+
+    <script>
+        function checkHeartRate() {
+            var heartRate = document.getElementById("heartRate").value;
+            var age = document.getElementById("age").value;
+            var activityLevel = document.getElementById("activityLevel").value;
+
+            if (heartRate === "" || isNaN(heartRate) || heartRate <= 0) {
+                alert("Please enter a valid heart rate.");
+                return;
+            }
+            if (age === "" || isNaN(age) || age <= 0) {
+                alert("Please enter a valid age.");
+                return;
+            }
+
+            var category = "";
+            var colorClass = "";
+
+            if (heartRate < 60) {
+                category = "Low Heart Rate (Bradycardia)";
+                colorClass = "low";
+            } else if (heartRate >= 60 && heartRate <= 100) {
+                category = "Normal Heart Rate";
+                colorClass = "normal";
+            } else {
+                category = "High Heart Rate (Tachycardia)";
+                colorClass = "high";
+            }
+
+            var ageAdvice = "";
+            if (age < 18) {
+                ageAdvice = "For children and adolescents, heart rate norms vary.";
+            } else if (age >= 18 && age <= 35) {
+                ageAdvice = "You are in a healthy age group for an active lifestyle.";
+            } else if (age > 35 && age <= 50) {
+                ageAdvice = "Ensure you monitor your heart rate regularly as you age.";
+            } else {
+                ageAdvice = "Older adults should maintain a moderate activity level and check heart rate frequently.";
+            }
+
+            var output = `
+                <div class="result-heading">Heart Rate Results:</div>
+                <p class="${colorClass}"><strong>Heart Rate:</strong> ${heartRate} bpm - ${category}</p>
+                <p><strong>Age:</strong> ${age} years</p>
+                <p><strong>Activity Level:</strong> ${activityLevel.charAt(0).toUpperCase() + activityLevel.slice(1)}</p>
+                <p><strong>Age Advice:</strong> ${ageAdvice}</p>
+            `;
+            document.getElementById("output").innerHTML = output;
+        }
+    </script>
+
+</body>
+</html>

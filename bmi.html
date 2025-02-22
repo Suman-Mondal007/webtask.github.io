@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('background3.jpg') no-repeat center center/cover;
+            text-align: center;
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            width: 40%;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            color: black;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: purple;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .gauge-container {
+            position: relative;
+            width: 100px;
+            height: 50px;
+            margin: 20px auto;
+        }
+        .gauge {
+            width: 100px;
+            height: 50px;
+            background: linear-gradient(to right, green, yellow, orange, red);
+            border-radius: 50px 50px 0 0;
+            position: relative;
+        }
+        .needle {
+            width: 2px;
+            height: 50px;
+            background: black;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform-origin: bottom;
+            transition: transform 0.5s ease-in-out;
+        }
+        .bmi-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 10px;
+            flex-wrap: wrap;
+        }
+        .category {
+            width: 22%;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .underweight { background: #b3d9ff; }
+        .normal { background: #c6f6d5; }
+        .overweight { background: #ffeb99; }
+        .obese { background: #ffcccc; }
+        .highlight {
+            border: 3px solid black;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Ultimate BMI Calculator</h2>
+    <p>Calculate your Body Mass Index (BMI) and track your health.</p>
+    
+    <input type="number" id="weight" placeholder="Enter weight in kg">
+    <input type="number" id="height" placeholder="Enter height in cm">
+    <br>
+    <button onclick="calculateBMI()">Calculate BMI</button>
+    
+    <h3 id="bmi-result"></h3>
+
+    <div class="gauge-container">
+        <div class="gauge"></div>
+        <div class="needle" id="needle"></div>
+    </div>
+
+    <h3>BMI Categories</h3>
+    <div class="bmi-categories">
+        <div class="category underweight" id="underweight">
+            <i class="fas fa-child fa-2x"></i>
+            <p>Underweight</p>
+            <p>< 18.5</p>
+        </div>
+        <div class="category normal" id="normal">
+            <i class="fas fa-male fa-2x"></i>
+            <p>Normal</p>
+            <p>18.5 - 24.9</p>
+        </div>
+        <div class="category overweight" id="overweight">
+            <i class="fas fa-drumstick-bite fa-2x"></i>
+            <p>Overweight</p>
+            <p>25 - 29.9</p>
+        </div>
+        <div class="category obese" id="obese">
+            <i class="fas fa-heartbeat fa-2x"></i>
+            <p>Obese</p>
+            <p>30 or greater</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculateBMI() {
+        let weight = document.getElementById("weight").value;
+        let height = document.getElementById("height").value / 100;
+        let bmi = (weight / (height * height)).toFixed(2);
+
+        document.getElementById("bmi-result").innerText = `BMI: ${bmi}`;
+
+        document.getElementById("underweight").classList.remove("highlight");
+        document.getElementById("normal").classList.remove("highlight");
+        document.getElementById("overweight").classList.remove("highlight");
+        document.getElementById("obese").classList.remove("highlight");
+
+        let rotation = 0;
+        if (bmi < 18.5) {
+            document.getElementById("underweight").classList.add("highlight");
+            rotation = -45;
+        } else if (bmi >= 18.5 && bmi < 25) {
+            document.getElementById("normal").classList.add("highlight");
+            rotation = 0;
+        } else if (bmi >= 25 && bmi < 30) {
+            document.getElementById("overweight").classList.add("highlight");
+            rotation = 45;
+        } else {
+            document.getElementById("obese").classList.add("highlight");
+            rotation = 90;
+        }
+
+        document.getElementById("needle").style.transform = `rotate(${rotation}deg)`;
+    }
+</script>
+
+</body>
+</html>

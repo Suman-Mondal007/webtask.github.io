@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Pressure Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('background3.jpg') no-repeat center center/cover;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 70%;
+            margin: auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="number"], button {
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .result-heading {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .normal {
+            color: green;
+            font-weight: bold;
+        }
+        .elevated {
+            color: orange;
+            font-weight: bold;
+        }
+        .high {
+            color: red;
+            font-weight: bold;
+        }
+        .stage2 {
+            color: darkred;
+            font-weight: bold;
+        }
+        .advice {
+            font-size: 16px;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #eef9ef;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .advice p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Blood Pressure Calculator</h1>
+
+        <div class="form-group">
+            <label for="systolic">Enter Systolic Pressure (mmHg):</label>
+            <input type="number" id="systolic" placeholder="Enter systolic pressure (top number)" />
+        </div>
+
+        <div class="form-group">
+            <label for="diastolic">Enter Diastolic Pressure (mmHg):</label>
+            <input type="number" id="diastolic" placeholder="Enter diastolic pressure (bottom number)" />
+        </div>
+
+        <button onclick="calculateBP()">Calculate Blood Pressure</button>
+
+        <div id="output" class="output">
+            <!-- BP Result and What to Do Section will appear here -->
+        </div>
+    </div>
+
+    <script>
+        function calculateBP() {
+            var systolic = document.getElementById("systolic").value;
+            var diastolic = document.getElementById("diastolic").value;
+
+            if (systolic === "" || diastolic === "" || isNaN(systolic) || isNaN(diastolic) || systolic <= 0 || diastolic <= 0) {
+                alert("Please enter valid systolic and diastolic values.");
+                return;
+            }
+
+            var category = "";
+            var colorClass = "";
+            var advice = "";
+
+            if (systolic < 90 && diastolic < 60) {
+                category = "Low Blood Pressure (Hypotension)";
+                colorClass = "normal";
+                advice = "<p><strong>What to Do:</strong> Drink more water, eat small meals throughout the day, and avoid alcohol. If symptoms persist, consult your doctor.</p>";
+            } else if (systolic >= 90 && systolic < 120 && diastolic >= 60 && diastolic < 80) {
+                category = "Normal Blood Pressure";
+                colorClass = "normal";
+                advice = "<p><strong>What to Do:</strong> Maintain a healthy diet, stay active, and monitor your BP regularly.</p>";
+            } else if (systolic >= 120 && systolic < 130 && diastolic < 80) {
+                category = "Elevated Blood Pressure";
+                colorClass = "elevated";
+                advice = "<p><strong>What to Do:</strong> Adopt a healthier diet, reduce stress, and increase physical activity. Monitor your BP frequently.</p>";
+            } else if (systolic >= 130 && systolic < 140 || diastolic >= 80 && diastolic < 90) {
+                category = "High Blood Pressure Stage 1";
+                colorClass = "high";
+                advice = "<p><strong>What to Do:</strong> Consider lifestyle changes such as exercise, reducing salt intake, and stress management. Consult with a healthcare provider for further guidance.</p>";
+            } else {
+                category = "High Blood Pressure Stage 2 (Hypertension)";
+                colorClass = "stage2";
+                advice = "<p><strong>What to Do:</strong> Seek medical attention immediately. A healthcare provider may recommend medication and lifestyle changes to manage your blood pressure.</p>";
+            }
+
+            document.getElementById("output").innerHTML = `<div class="result-heading">Blood Pressure Result:</div><p class="${colorClass}"><strong>Blood Pressure:</strong> ${systolic}/${diastolic} mmHg - ${category}</p><div class="advice">${advice}</div>`;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Hub 🏥</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Background Image */
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('background3.jpg'); /* Replace with your image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .navbar ul li {
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            color: yellow;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+            min-height: 80vh;
+        }
+
+        .content {
+            max-width: 50%;
+        }
+
+        .content h1 {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-buttons button {
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+            border-radius: 5px;
+            background: #fcfcfc;
+            color: rgb(0, 0, 0);
+            transition: 0.3s;
+        }
+
+        .cta-buttons button:hover {
+            background: #f8f6f7;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Features Section */
+        .features-section {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .features-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+            background: #f1f1f1;
+        }
+
+        .feature-card img {
+            width: 50px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: black;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🏥 Health<span style="color: rgb(255, 255, 255);"> Care</span></div>
+        <ul>
+            <li><a href="homepage.html">🏠 Home</a></li>
+            <li><a href="feat.html">💡 Feature</a></li>
+            <li><a href="process.html">⚙️ Process</a></li>
+            <li><a href="doctor.html">👨‍⚕Doctor</a></li>
+            <li><a href="FAQ.html">❓ FAQs</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="content">
+            <h1>Revolutionize Your <span class="gradient-text">Health Journey 🚀</span></h1>
+            <p>Embark on a transformative wellness adventure with AI-driven plans and expert guidance. 🩺 Healthcare is the maintenance and improvement of health through the prevention, diagnosis, treatment, and recovery of diseases, injuries, and other physical and mental conditions. 💊 It involves a wide range of medical services, including hospitals, clinics, pharmaceuticals, and wellness programs.</p>
+            <div class="cta-buttons">
+                <button class="learn-more"><a href="learn.html" style="text-decoration: none; color: black;">📚 Learn More</a></button>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="he.gif" alt="🏃‍♂️ Illustration of a healthy lifestyle">
+        </div>
+    </div>
+    </section>
+</body>
+</html>

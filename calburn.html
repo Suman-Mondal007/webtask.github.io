@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Calorie Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('background3.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: auto;
+        }
+
+        h2 {
+            color: #ffcc00;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .calculate-btn, .reset-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .calculate-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .reset-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffcc00;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Workout Calorie Calculator</h2>
+
+    <label for="weight">Weight (kg)</label>
+    <input type="number" id="weight" placeholder="Enter your weight" required>
+
+    <label for="exercise">Workout Type</label>
+    <select id="exercise">
+        <option value="8">Running</option>
+        <option value="7">Cycling</option>
+        <option value="10">Jump Rope</option>
+        <option value="6">Walking</option>
+        <option value="5">Yoga</option>
+        <option value="12">Swimming</option>
+    </select>
+
+    <label for="duration">Duration (minutes)</label>
+    <input type="number" id="duration" placeholder="Enter workout duration" required>
+
+    <button class="calculate-btn" onclick="calculateCalories()">Calculate</button>
+
+    <div class="result" id="caloriesResult">Calories Burned: --</div>
+
+    <button class="reset-btn" onclick="resetForm()">Clear</button>
+</div>
+
+<script>
+    function calculateCalories() {
+        let weight = document.getElementById("weight").value;
+        let exercise = document.getElementById("exercise").value;
+        let duration = document.getElementById("duration").value;
+
+        if (!weight || !duration) {
+            alert("Please enter weight and duration!");
+            return;
+        }
+
+        let MET = parseFloat(exercise); // MET value from dropdown
+        let caloriesBurned = (MET * 3.5 * weight / 200) * duration;
+
+        document.getElementById("caloriesResult").innerText = "Calories Burned: " + caloriesBurned.toFixed(1) + " kcal";
+    }
+
+    function resetForm() {
+        document.getElementById("weight").value = "";
+        document.getElementById("duration").value = "";
+        document.getElementById("caloriesResult").innerText = "Calories Burned: --";
+    }
+</script>
+
+</body>
+</html>

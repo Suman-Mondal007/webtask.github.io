@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Recipes Nutrition Facts</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90vw;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #765db2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #a18cd1;
+        }
+
+        /* Make results appear in a grid layout */
+        #result {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            max-width: 90%;
+        }
+
+        .recipe {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .recipe h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+
+        .error {
+            color: red;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Food Recipes Nutrition Facts</h1>
+        <div class="input-container">
+            <input type="text" id="searchInput" placeholder="Enter a food item (e.g., egg)">
+            <button id="searchButton">Search</button>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (query) {
+                fetchDetails(query);
+            } else {
+                document.getElementById('result').innerHTML = '<p class="error">Please enter a valid food item.</p>';
+            }
+        });
+
+        function fetchDetails(query) {
+            const apiUrl = `https://api.edamam.com/api/food-database/v2/parser?ingr=${query}&app_id=155a5345&app_key=485ea0358c8efe6de70541560fe0f44e`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.hints && data.hints.length > 0) {
+                        displayResults(data.hints.slice(0, 5)); // Limit to 5 results
+                    } else {
+                        document.getElementById('result').innerHTML = '<p class="error">No results found.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    document.getElementById('result').innerHTML = '<p class="error">Error fetching data. Try again.</p>';
+                });
+        }
+
+        function displayResults(foods) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+
+            foods.forEach(foodItem => {
+                const food = foodItem.food;
+                const foodHtml = `
+                    <div class="recipe">
+                        <h3>${food.label}</h3>
+                        <p><strong>Category:</strong> ${food.category}</p>
+                        <p><strong>Calories:</strong> ${food.nutrients.ENERC_KCAL ? food.nutrients.ENERC_KCAL + ' kcal' : 'N/A'}</p>
+                        <p><strong>Protein:</strong> ${food.nutrients.PROCNT ? food.nutrients.PROCNT + ' g' : 'N/A'}</p>
+                        <p><strong>Fat:</strong> ${food.nutrients.FAT ? food.nutrients.FAT + ' g' : 'N/A'}</p>
+                        <p><strong>Carbs:</strong> ${food.nutrients.CHOCDF ? food.nutrients.CHOCDF + ' g' : 'N/A'}</p>
+                    </div>
+                `;
+                resultDiv.insertAdjacentHTML('beforeend', foodHtml);
+            });
+        }
+    </script>
+</body>
+</html>

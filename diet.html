@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Recommendation System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: url('background3.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen">
+    <div class="w-full max-w-2xl bg-white bg-opacity-90 p-6 rounded-xl shadow-lg">
+        <div class="flex justify-between mb-4"></div>
+        
+        <!-- Personal Information -->
+        <div class="p-6 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl text-white">
+            <h2 class="text-xl font-semibold mb-4">Personal Information</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <input type="number" id="age" placeholder="Age" class="p-2 rounded-lg text-gray-800 w-full">
+                <select id="gender" class="p-2 rounded-lg text-gray-800 w-full">
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+                <input type="number" id="height" placeholder="Height (cm)" class="p-2 rounded-lg text-gray-800 w-full">
+                <input type="number" id="weight" placeholder="Weight (kg)" class="p-2 rounded-lg text-gray-800 w-full">
+                <select id="activity" class="p-2 rounded-lg text-gray-800 w-full">
+                    <option>Low Activity</option>
+                    <option>Moderate Activity</option>
+                    <option>High Activity</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Health Metrics -->
+        <div class="mt-6 p-6 bg-gradient-to-r from-teal-400 to-green-400 rounded-xl text-white">
+            <h2 class="text-xl font-semibold mb-4">Health Metrics</h2>
+            <p class="mb-2">Existing medical conditions:</p>
+            <div class="flex flex-wrap gap-2" id="health-conditions">
+                <button class="toggle-btn px-4 py-2 bg-gray-300 text-black rounded-full">Diabetes</button>
+                <button class="toggle-btn px-4 py-2 bg-gray-300 text-black rounded-full">Hypertension</button>
+                <button class="toggle-btn px-4 py-2 bg-gray-300 text-black rounded-full">Heart Disease</button>
+                <button class="toggle-btn px-4 py-2 bg-gray-300 text-black rounded-full">None</button>
+            </div>
+            <input type="text" id="allergies" placeholder="Allergies" class="mt-4 p-2 rounded-lg text-gray-800 w-full">
+            <input type="text" id="dietary-restrictions" placeholder="Dietary restrictions" class="mt-2 p-2 rounded-lg text-gray-800 w-full">
+        </div>
+        
+        <!-- Dietary Preferences -->
+        <div class="mt-6 p-6 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-xl text-white">
+            <h2 class="text-xl font-semibold mb-4">Dietary Preferences</h2>
+            <select id="diet-type" class="p-2 rounded-lg text-gray-800 w-full">
+                <option>Vegetarian</option>
+                <option>Non-Vegetarian</option>
+                <option>Vegan</option>
+            </select>
+            <p class="mt-4 mb-2">Preferred cuisines:</p>
+            <div class="flex flex-wrap gap-2" id="preferred-cuisines">
+                <button class="toggle-btn px-4 py-2 bg-gray-300 text-black rounded-full">Italian</button>
+                <button class="toggle-btn px-4 py-2 bg-gray-300 text-black rounded-full">Indian</button>
+                <button class="toggle-btn px-4 py-2 bg-gray-300 text-black rounded-full">Mexican</button>
+                <button class="toggle-btn px-4 py-2 bg-gray-300 text-black rounded-full">Chinese</button>
+                <button class="toggle-btn px-4 py-2 bg-gray-300 text-black rounded-full">Japanese</button>
+                <button class="toggle-btn px-4 py-2 bg-gray-300 text-black rounded-full">Mediterranean</button>
+            </div>
+        </div>
+        
+        <!-- Diet Recommendation -->
+        <div class="mt-6 p-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl text-white">
+            <h2 class="text-xl font-semibold mb-4">Your Personalized Diet Plan</h2>
+            <p id="diet-plan" class="text-center">Click below to generate your diet plan.</p>
+            <button id="generate-plan" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg w-full">Generate Diet Plan</button>
+        </div>
+        
+        <script>
+            document.querySelectorAll(".toggle-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    this.classList.toggle("bg-blue-500");
+                    this.classList.toggle("text-white");
+                    this.classList.toggle("bg-gray-300");
+                    this.classList.toggle("text-black");
+                });
+            });
+
+            document.getElementById("generate-plan").addEventListener("click", function() {
+                let dietType = document.getElementById("diet-type").value;
+                let healthConditions = [];
+                document.querySelectorAll(".toggle-btn.bg-blue-500").forEach(btn => healthConditions.push(btn.innerText));
+
+                let dietPlan = "Your personalized diet plan includes: ";
+                if (dietType === "Vegetarian") {
+                    dietPlan += "A variety of vegetables, legumes, nuts, and whole grains. Include dairy and eggs if suitable. Focus on high-protein foods like lentils, tofu, and quinoa.";
+                } else if (dietType === "Non-Vegetarian") {
+                    dietPlan += "Lean meats, fish, poultry, and eggs. Include fiber-rich vegetables, healthy fats, and whole grains for balanced nutrition.";
+                } else {
+                    dietPlan += "Plant-based proteins like tofu, lentils, seeds, and dairy alternatives with vitamin B12 supplements.";
+                }
+
+                dietPlan += " \n\n Recommended Meals: \n Breakfast: Oatmeal with nuts and berries / Scrambled eggs with whole-grain toast \n Lunch: Grilled salmon with quinoa and vegetables / Lentil soup with whole-grain bread \n Dinner: Stir-fried tofu with brown rice and greens / Chicken with roasted sweet potatoes.";
+
+                document.getElementById("diet-plan").innerText = dietPlan;
+            });
+        </script>
+    </div>
+</body>
+</html>

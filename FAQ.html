@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare & Fitness FAQ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Background Image */
+        body {
+            background: url('background3.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Dark Overlay for Readability */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Adjust transparency */
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            color: black;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .faq-container {
+            text-align: left;
+        }
+
+        .faq-question {
+            background: #0072ff;
+            color: white;
+            padding: 15px;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 18px;
+            cursor: pointer;
+            outline: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #0056b3;
+        }
+
+        .faq-answer {
+            display: none;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .faq-question.active {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Healthcare & Fitness - FAQs</h1>
+
+    <div class="container">
+        <div class="faq-container">
+            
+            <button class="faq-question">1. Why is regular health check-up important?</button>
+            <div class="faq-answer">
+                Regular check-ups help in early detection of health conditions and prevent serious diseases.
+            </div>
+
+            <button class="faq-question">2. What is the best diet for fitness?</button>
+            <div class="faq-answer">
+                A balanced diet includes proteins, healthy fats, carbohydrates, vitamins, and minerals.
+            </div>
+
+            <button class="faq-question">3. How much exercise should I do daily?</button>
+            <div class="faq-answer">
+                Experts recommend at least 30 minutes of moderate exercise per day for overall fitness.
+            </div>
+
+            <button class="faq-question">4. How important is hydration for fitness?</button>
+            <div class="faq-answer">
+                Drinking enough water maintains metabolism, supports digestion, and keeps energy levels up.
+            </div>
+
+            <button class="faq-question">5. What are some simple stress management techniques?</button>
+            <div class="faq-answer">
+                Meditation, deep breathing, and daily exercise can significantly reduce stress.
+            </div>
+
+            <button class="faq-question">6. How can I improve my sleep quality?</button>
+            <div class="faq-answer">
+                Avoid caffeine before bed, maintain a sleep schedule, and keep your room dark and quiet.
+            </div>
+
+            <button class="faq-question">7. What are good sources of protein for muscle growth?</button>
+            <div class="faq-answer">
+                Lean meats, eggs, fish, nuts, beans, and dairy products are excellent protein sources.
+            </div>
+
+            <button class="faq-question">8. How can I boost my immune system naturally?</button>
+            <div class="faq-answer">
+                Eating healthy, exercising, sleeping well, and managing stress can strengthen your immune system.
+            </div>
+
+            <button class="faq-question">9. What are common signs of nutritional deficiencies?</button>
+            <div class="faq-answer">
+                Fatigue, brittle nails, frequent colds, hair loss, and muscle weakness are common signs.
+            </div>
+
+            <button class="faq-question">10. How does mental health impact physical fitness?</button>
+            <div class="faq-answer">
+                Poor mental health can lead to stress eating, lack of motivation, and sleep disturbances, affecting overall fitness.
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll(".faq-question").forEach(button => {
+            button.addEventListener("click", function() {
+                this.classList.toggle("active");
+                let answer = this.nextElementSibling;
+                answer.style.display = answer.style.display === "block" ? "none" : "block";
+            });
+        });
+    </script>
+
+</body>
+</html>

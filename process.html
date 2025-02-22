@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare & Fitness Process</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Background Image */
+        body {
+            background: url('background3.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Dark Overlay for Readability */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Adjust transparency */
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            color: black;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .step-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-card img {
+            width: 70px;
+            margin-bottom: 10px;
+        }
+
+        .step-card h3 {
+            font-size: 22px;
+            color: #0072ff;
+            margin-bottom: 10px;
+        }
+
+        .step-card p {
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Healthcare & Fitness Process</h1>
+
+    <div class="container">
+        <div class="steps-container">
+            <div class="step-card">
+                <img src="med.png" alt="Medical Checkup">
+                <h3>1. Regular Health Check-ups</h3>
+                <p>Routine check-ups help in early detection of diseases and maintain overall health.</p>
+            </div>
+
+            <div class="step-card">
+                <img src="nutri.png" alt="Nutrition Plan">
+                <h3>2. Balanced Nutrition</h3>
+                <p>Eating a healthy diet rich in proteins, vitamins, and minerals supports body functions.</p>
+            </div>
+
+            <div class="step-card">
+                <img src="exer.png" alt="Exercise">
+                <h3>3. Physical Activity</h3>
+                <p>Regular workouts, including strength training and cardio, improve fitness and endurance.</p>
+            </div>
+
+            <div class="step-card">
+                <img src="hydra.png" alt="Hydration">
+                <h3>4. Stay Hydrated</h3>
+                <p>Drinking sufficient water maintains body hydration and supports organ function.</p>
+            </div>
+
+            <div class="step-card">
+                <img src="sleep.png" alt="Sleep">
+                <h3>5. Quality Sleep</h3>
+                <p>Adequate rest is essential for muscle recovery, brain function, and overall well-being.</p>
+            </div>
+
+            <div class="step-card">
+                <img src="mental.png" alt="Mental Wellness">
+                <h3>6. Mental Wellness</h3>
+                <p>Stress management, meditation, and therapy promote emotional stability.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

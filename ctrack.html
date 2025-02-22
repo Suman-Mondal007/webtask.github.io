@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: url('https://source.unsplash.com/1600x900/?healthy-food,calories') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .suggestions {
+            position: absolute;
+            width: 100%;
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            z-index: 10;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        .suggestions div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .suggestions div:hover {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen">
+
+    <div class="w-full max-w-lg bg-white bg-opacity-90 p-6 rounded-xl shadow-lg relative">
+        <h2 class="text-2xl font-bold text-center text-red-600 mb-4">Calorie Calculator</h2>
+
+        <label class="block mb-2 font-semibold">Search Food Item:</label>
+        <input type="text" id="foodInput" placeholder="Type food name..." class="p-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
+        <button onclick="searchFood()" class="mt-2 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Search</button>
+        
+        <div id="foodInfo" class="mt-4 hidden">
+            <h3 class="text-lg font-semibold">Food Information:</h3>
+            <p id="foodName" class="text-gray-700"></p>
+            <p id="foodCalories" class="text-gray-700"></p>
+        </div>
+
+        <label class="block mt-4 mb-2 font-semibold">Enter Quantity (grams):</label>
+        <input type="number" id="quantity" class="p-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
+
+        <button onclick="calculateCalories()" class="mt-4 w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700">Calculate Calories</button>
+
+        <p id="result" class="text-center text-lg font-semibold mt-4"></p>
+    </div>
+
+    <script>
+        let caloriePer100g = 0; // Store calorie data from API
+
+        async function searchFood() {
+            const foodName = document.getElementById("foodInput").value.trim();
+            if (!foodName) {
+                alert("Please enter a food name!");
+                return;
+            }
+
+            const apiKey = "YOUR_EDAMAM_API_KEY"; // Replace with your Edamam API key
+            const apiId = "YOUR_EDAMAM_APP_ID";   // Replace with your Edamam App ID
+            const apiUrl = `https://api.edamam.com/api/food-database/v2/parser?ingr=${encodeURIComponent(foodName)}&app_id=${apiId}&app_key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.hints.length > 0) {
+                    const food = data.hints[0].food;
+                    document.getElementById("foodName").innerText = `🍏 Food: ${food.label}`;
+                    document.getElementById("foodCalories").innerText = `🔥 Calories (per 100g): ${food.nutrients.ENERC_KCAL.toFixed(2)} kcal`;
+                    caloriePer100g = food.nutrients.ENERC_KCAL;
+                    document.getElementById("foodInfo").classList.remove("hidden");
+                } else {
+                    alert("No food found! Try a different name.");
+                }
+            } catch (error) {
+                alert("Error fetching food data! Please try again.");
+            }
+        }
+
+        function calculateCalories() {
+            let quantity = document.getElementById("quantity").value;
+            let resultText = "";
+
+            if (caloriePer100g === 0) {
+                resultText = "⚠ Please search for a food item first!";
+            } else if (quantity <= 0) {
+                resultText = "⚠ Please enter a valid quantity!";
+            } else {
+                let totalCalories = (caloriePer100g * quantity) / 100;
+                resultText = `🔥 You consumed **${totalCalories.toFixed(2)} kcal**! 🍽️`;
+            }
+
+            document.getElementById("result").innerHTML = resultText;
+        }
+    </script>
+
+</body>
+</html>

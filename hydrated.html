@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Balance Checker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: url('background3.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen">
+
+    <div class="w-full max-w-lg bg-white bg-opacity-90 p-6 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold text-center text-blue-600 mb-4">Water Balance Checker</h2>
+
+        <label class="block mb-2 font-semibold">Enter your weight (kg):</label>
+        <input type="number" id="weight" class="p-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+        <label class="block mt-4 mb-2 font-semibold">Enter your daily water intake (liters):</label>
+        <input type="number" id="waterIntake" class="p-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+        <button onclick="checkWaterBalance()" class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Check Water Balance</button>
+
+        <p id="result" class="text-center text-lg font-semibold mt-4"></p>
+    </div>
+
+    <script>
+        function checkWaterBalance() {
+            let weight = document.getElementById("weight").value;
+            let waterIntake = document.getElementById("waterIntake").value;
+            let resultText = "";
+
+            if (weight <= 0 || waterIntake < 0) {
+                resultText = "Please enter valid values!";
+            } else {
+                let recommendedWater = weight * 0.035; // Formula: 35ml per kg body weight
+
+                if (waterIntake < recommendedWater * 0.8) {
+                    resultText = "⚠ You are **dehydrated**! Increase your water intake. 💧";
+                } else if (waterIntake > recommendedWater * 1.5) {
+                    resultText = "🚨 You are **overhydrated**! Reduce excess water intake. ⚠";
+                } else {
+                    resultText = "✅ Your **water balance is perfect**! Keep it up! 🏆";
+                }
+            }
+
+            document.getElementById("result").innerHTML = resultText;
+        }
+    </script>
+
+</body>
+</html>

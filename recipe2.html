@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        body {
+            width: 100%;
+            min-height: 100vh;
+            background: #f8f8f8;
+        }
+        /* Header */
+        header {
+            height: 60px;
+            width: 100%;
+            background: #222;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .nav-list {
+            display: none;
+        }
+        .nav-list li {
+            list-style: none;
+            display: inline;
+            margin-right: 20px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .logo {
+            font-size: 24px;
+        }
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        @media (min-width: 768px) {
+            .menu-icon {
+                display: none;
+            }
+            .nav-list {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            width: 100%;
+            background: url('background3.jpg') no-repeat center;
+            background-size: cover;
+            text-align: center;
+            color: #fff;
+            padding: 140px 0;
+        }
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        /* Search Box */
+        .search-box {
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            width: 300px;
+            margin: auto;
+        }
+        .search-box input {
+            width: 70%;
+            padding: 10px;
+            border: none;
+            font-size: 1rem;
+        }
+        .search-box button {
+            padding: 10px 20px;
+            background: #ff5722;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Recipes Section */
+        .recipes {
+            padding: 50px 0;
+            text-align: center;
+        }
+        .recipe-section {
+            width: 90%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .recipe-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+        }
+        .recipe-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .recipe-card h2 {
+            padding: 15px;
+            font-size: 20px;
+        }
+        .recipe-card p {
+            padding: 10px;
+        }
+        .recipe-card a {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            background: #333;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            padding: 20px 0;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1 class="logo">Delicious Recipe</h1>
+        <nav>
+            <div class="menu-icon">&#9776;</div>
+            
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-section">
+            <h2>Welcome to our Recipe Collection</h2>
+            <p>Search mouth-watering recipes to satisfy your craving.</p>
+            <form class="search-box" id="searchForm">
+                <input type="text" id="searchInput" placeholder="Search Recipe">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Recipe Section -->
+    <section class="recipes">
+        <h1>Search Results</h1>
+        <div class="recipe-section" id="recipeResults"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Delicious Recipes</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchForm = document.getElementById("searchForm");
+            const searchInput = document.getElementById("searchInput");
+            const recipeResults = document.getElementById("recipeResults");
+
+            // Function to fetch recipes from API
+            async function fetchRecipes(query) {
+                const apiUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
+                try {
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+                    displayRecipes(data.meals);
+                } catch (error) {
+                    console.error("Error fetching recipes:", error);
+                }
+            }
+
+            // Function to display recipes
+            function displayRecipes(meals) {
+                recipeResults.innerHTML = "";
+
+                if (!meals) {
+                    recipeResults.innerHTML = "<p>No recipes found. Try another search.</p>";
+                    return;
+                }
+
+                meals.forEach(meal => {
+                    const recipeCard = document.createElement("div");
+                    recipeCard.classList.add("recipe-card");
+                    recipeCard.innerHTML = `
+                        <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                        <h2>${meal.strMeal}</h2>
+                        <p>${meal.strCategory}</p>
+                        <a href="${meal.strYoutube}" target="_blank">View Recipe</a>
+                    `;
+                    recipeResults.appendChild(recipeCard);
+                });
+            }
+
+            // Event Listener for search
+            searchForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+                const query = searchInput.value.trim();
+                if (query) {
+                    fetchRecipes(query);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
